@@ -1,0 +1,142 @@
+for_EC2
+
+AKIASTBGYIINHXLGZ7T4
+8H1F8KEfIMiSPnKr4HJ/ZPEOBRauPhVq+Whzdy/o
+
+設定custom profile，將key寫道for_EC2
+aws configure --profile for_EC2
+
+---------------------------------------
+1.建立virtualenv
+virtualenv myvirtualenv
+
+2.linux進入myvirtualenv
+a.進入專案目錄
+b.source ./bin/activate
+
+3.離開myvirtualenv
+deactivate
+
+
+
+aws ec2 describe-tags --filters "Name=resource-id,Values=i-075f2afa2ea050cd5" --profile for_EC2
+
+aws ec2 describe-tags --filters "Name=resource-type,Values=instance" --profile for_EC2
+
+*aws ec2 describe-tags --filters "Name=tag:AWSBACKUP,Values=3DAYS" "Name=resource-type,Values=instance" --profile for_EC2
+
+
+
+aws ec2 describe-instances --profile for_EC2
+
+
+aws ec2 describe-instances --filters "Name=instance-state-code,Values=16" --profile for_EC2
+
+*aws ec2 describe-instances --filters "Name=vpc-id,Values=vpc-fea7129b" --profile for_EC2
+
+
+i-0bca46dea59f1feb6
+
+
+----------------------------------------------------------------------
+
+
+
+aws ec2 describe-tags --filters "Name=tag:Project,Values=*" "Name=resource-type,Values=instance" --profile for_EC2
+
+
+ln -fs /usr/local/bin/python3.9 /root/EC2_TAG_Virtualenv/bin/python3
+
+
+
+-----------------------------------------------
+
+
+
+正式環境
+srvzabbix-aws路徑
+手動:
+source /root/EC2_Tag_20230406/EC2_Tag_virtualenv/bin/activate
+cd /root/EC2_Tag_20230406/EC2_Tag_virtualenv/Tag_AWSBACKUP/
+python EC2_Tag_AWSBACKUP_EXE.py
+
+
+自動:
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+每月1號的3點10分執行
+10 3 1 * * source /root/EC2_Tag_20230406/EC2_Tag_virtualenv/bin/activate && /root/EC2_Tag_20230406/EC2_Tag_virtualenv/bin/python3 /root/EC2_Tag_20230406/EC2_Tag_virtualenv/Tag_AWSBACKUP/EC2_Tag_AWSBACKUP_EXE.py
+
+每月1號的4點10分執行
+10 4 1 * * source /root/EC2_Tag_20230406/EC2_Tag_virtualenv/bin/activate && /root/EC2_Tag_20230406/EC2_Tag_virtualenv/bin/python3 /root/EC2_Tag_20230406/EC2_Tag_virtualenv/Tag_Project/EC2_Tag_Project_EXE.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Louis
+有空有話，需要幫忙創建一組AWS Key，以下是我看到有可能的policy權限，或者是EC2的List權限
+可以開大一點，未來可以用這組key去撈取EC2資訊，謝謝
+
+1.需要撈取EC2中的Tag
+
+List->
+1.DescribeTags
+
+
+2.需要去撈取特定subnet中的EC2哪些沒有某個特定的SG
+
+List->
+1.DescribeSecurityGroupReferences
+2.DescribeSecurityGroupRules
+3.DescribeSecurityGroups
+4.DescribeStaleSecurityGroups
+5.DescribeSubnets
+
+抱歉，再新增一項
+
+C.ELB的List和Read權限
+
+
+Louis
+關於自動化撈取EC2 tag資訊，code已寫好，我像要在一台EC2執行python，並使用SNS去寄email通知管理者，但應該需要SNS的一組key，
+需要再幫忙建一下，謝謝
+
+應該要把key放入下方的code
+
+
+
+
+
+
+
